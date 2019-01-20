@@ -2,10 +2,9 @@ package com.faitechno.www.daskomqrcode;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.google.zxing.Result;
-
-import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 public class ScanActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler {
 
@@ -36,7 +35,7 @@ public class ScanActivity extends AppCompatActivity implements ZXingScannerView.
 
         //TODO
         //SEND API REQUEST BASED ON NIM GOT FROM RESULT using result.getText()
-
+        Toast.makeText(this, result.getText(), Toast.LENGTH_SHORT).show();
         onBackPressed();
     }
 }
