@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
     Button scanButton;
     ImageView barcodeImage;
-    public TextView textView;
+    EditText ipAddressET;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,12 +31,14 @@ public class MainActivity extends AppCompatActivity {
 
         scanButton = findViewById(R.id.scanButton);
         barcodeImage = findViewById(R.id.barcodeImage);
-        textView = findViewById(R.id.textView);
+        ipAddressET = findViewById(R.id.editText);
 
         scanButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, ScanActivity.class));
+                Intent intent = new Intent(MainActivity.this, ScanActivity.class);
+                intent.putExtra("EXTRA_IPADDR", ipAddressET.getText().toString());
+                startActivity(intent);
             }
         });
 
