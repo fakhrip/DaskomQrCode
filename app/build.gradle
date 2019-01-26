@@ -25,6 +25,7 @@ dependencies {
 
     //zxing library for barcode
     implementation 'com.google.zxing:core:3.2.1'
+    implementation 'com.android.support:recyclerview-v7:28.0.0'
 
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'

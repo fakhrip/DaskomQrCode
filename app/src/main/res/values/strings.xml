@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">DaskomQrCode</string>
     <string name="ip_address">Ip Address</string>
+    <string name="scan_qr_code">Scan qr code</string>
+    <string name="cek_list_praktikan">Cek List Praktikan</string>
+    <string name="nim_praktikan">Nim Praktikan</string>
+    <string name="cek_status_praktikan">cek status praktikan</string>
     <integer name="viewfinder_border_width">4</integer>
     <integer name="viewfinder_border_length">60</integer>
 

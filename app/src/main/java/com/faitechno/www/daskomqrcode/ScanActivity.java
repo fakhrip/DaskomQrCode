@@ -1,5 +1,7 @@
 package com.faitechno.www.daskomqrcode;
 
+import android.app.ProgressDialog;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -42,26 +44,35 @@ public class ScanActivity extends AppCompatActivity implements ZXingScannerView.
     public void handleResult(Result result) {
 
         //SEND API REQUEST BASED ON NIM GOT FROM RESULT using result.getText()
+        final ProgressDialog progressDialog = new ProgressDialog(ScanActivity.this);
+        progressDialog.setMessage("Loading....");
+        progressDialog.show();
+
         ApiManager apiManager;
         apiManager = ApiManager.getInstance(ipaddr);
 
         apiManager.changePraktikanStatus(result.getText(), new Callback<Praktikan>() {
             @Override
-            public void onResponse(Call<Praktikan> call, Response<Praktikan> response) {
-                Log.d("TEST", "onResponse: "+call.request().toString());
-                Toast.makeText(ScanActivity.this, response.message(), Toast.LENGTH_SHORT).show();
+            public void onResponse(@NonNull Call<Praktikan> call, @NonNull Response<Praktikan> response) {
+
+                if (response.body() != null) {
+                    Toast.makeText(ScanActivity.this, response.body().getNama()+"-"+response.body().getNim(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(ScanActivity.this, "Selamat anda berhasil mengumpulkan TP", Toast.LENGTH_SHORT).show();
+                }
+                progressDialog.dismiss();
+                onBackPressed();
             }
 
             @Override
-            public void onFailure(Call<Praktikan> call, Throwable t) {
+            public void onFailure(@NonNull Call<Praktikan> call, @NonNull Throwable t) {
 
+                Log.d("ERRORUY", "onFailure: "+t.getLocalizedMessage());
                 Toast.makeText(ScanActivity.this,
                         "Error is " + t.getMessage()
                         , Toast.LENGTH_LONG).show();
+                progressDialog.dismiss();
+                onBackPressed();
             }
         });
-
-        Toast.makeText(this, result.getText(), Toast.LENGTH_SHORT).show();
-        onBackPressed();
     }
 }
